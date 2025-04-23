@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Subject | Attendance System</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-card {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .form-card h2 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .subject-option {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    .select-button {
+      background-color: #fb8c00;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .select-button:hover {
+      background-color: #ef6c00;
+    }
+
+    .back-button {
+      background-color: #ffe0b2;
+      color: #f57c00;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #ffcc80;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2>Select Subject</h2>
+    <form method="GET" action="/attendance_options">
+      <div class="subject-option">
+        {% for subject in subjects %}
+          <button class="select-button" type="submit" name="subject_id" value="{{ subject.id }}">
+            {{ subject.name }}
+          </button>
+        {% endfor %}
+      </div>
+    </form>
+    
+    <!-- Back Button Below -->
+    <button class="back-button" onclick="history.back()">Back</button>
+  </div>
+</body>
+</html>

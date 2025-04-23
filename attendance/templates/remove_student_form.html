@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Remove Student | Attendance System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .form-card {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #ad1457;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #c2185b;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #fce4ec;
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submit-button {
+      background-color: #c2185b;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .submit-button:hover {
+      background-color: #880e4f;
+    }
+
+    .back-button {
+      background-color: #f8bbd0;
+      color: #880e4f;
+      margin-top: 10px;
+    }
+
+    .back-button:hover {
+      background-color: #f48fb1;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2>Remove Students</h2>
+    <form method="POST" action="/remove_student">
+      <table>
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Course</th>
+            <th>Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td><input type="checkbox" name="students_to_remove" value="{{ student.id }}"></td>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.course_id == 1 and 'BCom' or 'BCA' }}</td>
+            <td>{{ student.year_id == 1 and 'First Year' or student.year_id == 2 and 'Second Year' or 'Third Year' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button type="submit" class="button submit-button">Remove Selected Students</button>
+    </form>
+
+    <button class="button back-button" onclick="window.location.href='/mark_attendance'">Back</button>
+  </div>
+</body>
+</html>

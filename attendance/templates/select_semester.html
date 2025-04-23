@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Semester | Attendance System</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ede7f6, #d1c4e9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-card {
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .form-card h2 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .select-button {
+      background-color: #7e57c2;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px 0;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .select-button:hover {
+      background-color: #6a1b9a;
+    }
+
+    .back-button {
+      background-color: #d1c4e9;
+      color: #4527a0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #b39ddb;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <h2>Select Semester</h2>
+    <form method="GET" action="/select_subject">
+      {% for semester in semesters %}
+        <button class="select-button" type="submit" name="semester_id" value="{{ semester.semester_id }}">
+          {{ semester.semester_name }}
+        </button>
+      {% endfor %}
+    </form>
+    
+    <!-- Back Button Below -->
+    <button class="back-button" onclick="history.back()">Back</button>
+  </div>
+</body>
+</html>

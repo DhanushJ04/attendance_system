@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>View Attendance | Attendance System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .table-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0277bd;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #0288d1;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .email-btn {
+      background-color: #e53935;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .email-btn:hover {
+      background-color: #c62828;
+    }
+
+    .back-button {
+      margin-top: 20px;
+      display: block;
+      text-align: center;
+      background-color: #0277bd;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background-color: #01579b;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-card">
+    <h2>Attendance Report</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th>Name</th>
+          <th>Total Classes</th>
+          <th>Present</th>
+          <th>Absent</th>
+          <th>Percentage</th>
+          <th>Send Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in student_attendance %}
+          {% set total_classes = student.present + student.absent %}
+          {% set percentage = (student.present / total_classes * 100) if total_classes > 0 else 0 %}
+          <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ total_classes }}</td>
+            <td>{{ student.present }}</td>
+            <td>{{ student.absent }}</td>
+            <td>{{ '%.2f' % percentage }}%</td>
+            <td>
+              {% if percentage < 75 %}
+                <form action="/send_email" method="post" style="margin: 0;">
+                  <input type="hidden" name="student_id" value="{{ student.id }}">
+                  <button type="submit" class="email-btn">Send Email</button>
+                </form>
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="/select_course" class="back-button">Back to Home</a>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+  </div>
+</body>
+</html>
